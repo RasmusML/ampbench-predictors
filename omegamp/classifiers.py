@@ -27,19 +27,6 @@ class PeptideClassifier(nn.Module):
         """To be implemented by child classes"""
         raise NotImplementedError
 
-    def train_classifier(
-        self,
-        input_features,
-        labels,
-        weight_balancing="balanced_with_adjustment_for_high_quality",
-        mask_high_quality_idxs=[],
-        return_feature_importances=False,
-        verbose=True,
-        objective="focal_loss",
-    ):
-        """To be implemented by child classes"""
-        raise NotImplementedError
-
     def forward(self, sequences):
         input = self.get_input_features(sequences)
         probas = self.model.predict_proba(input)[:, 1]
