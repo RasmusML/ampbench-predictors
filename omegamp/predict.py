@@ -8,7 +8,7 @@ import numpy as np
 def predict(
     sequences: list[str],
     *,
-    checkpoint: Literal["broad-classifier"] = "broad-classifier",
+    checkpoint: Literal["broad-classifier", "hemolytic-classifier"] = "broad-classifier",
     batch_size: int = 512,
     predict_proba: bool = True,
 ) -> np.ndarray:

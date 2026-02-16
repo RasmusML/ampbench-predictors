@@ -5,7 +5,7 @@
 Create a new virtual enviroment, e.g., `conda` environment:
 
 ```
-conda create -n omegamp-env python=3.11
+conda create -n omegamp_env python=3.11
 ```
 
 Define the entry-point.
@@ -18,7 +18,7 @@ model = ThirdPartyModel(
     repo_path="./plugins/thirdparty/omegamp",
     repo_url="https://github.com/RasmusML/ampbench-predictors",
     #branch="ampeppy",
-    python_bin="/opt/anaconda3/envs/omegamp-env/bin/python",
+    python_bin="/opt/anaconda3/envs/omegamp_env/bin/python",
 )
 
 model(sequences=["SEQVENCE"])
