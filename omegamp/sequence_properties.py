@@ -4,7 +4,7 @@ Code originally from https://github.com/szczurek-lab/hydramp/blob/master/amp/uti
 
 from typing import Dict, List
 
-import modlamp.analysis as manalysis
+import modlamp.descriptors as manalysis
 import numpy as np
 from modlamp.core import load_scale
 from omegamp.constants import AMINO_ACIDS

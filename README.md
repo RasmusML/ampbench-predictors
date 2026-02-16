@@ -14,11 +14,11 @@ Define the entry-point.
 from seqme.models import ThirdPartyModel
 
 model = ThirdPartyModel(
-    entry_point="amPEPpy.predict:predict",
-    repo_path="./plugins/thirdparty/ampeppy",
-    repo_url="https://github.com/szczurek-lab/seqme-thirdparty",
-    branch="ampeppy",
-    python_bin="/opt/anaconda3/envs/ampeppy_env/bin/python",
+    entry_point="omegamp.predict:predict",
+    repo_path="./plugins/thirdparty/omegamp",
+    repo_url="https://github.com/RasmusML/ampbench-predictors",
+    #branch="ampeppy",
+    python_bin="/opt/anaconda3/envs/omegamp-env/bin/python",
 )
 
 model(sequences=["SEQVENCE"])
