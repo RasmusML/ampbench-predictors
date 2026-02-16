@@ -4,7 +4,7 @@ Code originally from https://github.com/szczurek-lab/hydramp/blob/master/amp/uti
 
 from typing import Dict, List
 
-import modlamp.descriptors as manalysis
+from modlamp.descriptors import GlobalDescriptor, PeptideDescriptor
 import numpy as np
 from modlamp.core import load_scale
 from omegamp.constants import AMINO_ACIDS
@@ -112,55 +112,56 @@ def calculate_secondary_structure_fraction(data: List[str], type="Helix") -> np.
 
 
 def calculate_instability_index(data: List[str]) -> np.ndarray:
-    h = manalysis.GlobalDescriptor(data)
+    h = GlobalDescriptor(data)
     h.instability_index()
     return h.descriptor.flatten()
 
 
 def calculate_molecular_weight(data: List[str]) -> np.ndarray:
-    h = manalysis.GlobalDescriptor(data)
+    h = GlobalDescriptor(data)
     h.calculate_MW(amide=True)
     return h.descriptor.flatten()
 
 
 def calculate_aromaticity(data: List[str]) -> np.ndarray:
-    h = manalysis.GlobalDescriptor(data)
+    h = GlobalDescriptor(data)
     h.aromaticity()
     return h.descriptor.flatten()
 
 
 def calculate_aliphatic_index(data: List[str]) -> np.ndarray:
-    h = manalysis.GlobalDescriptor(data)
+    h = GlobalDescriptor(data)
     h.aliphatic_index()
     return h.descriptor.flatten()
 
 
 def calculate_boman_index(data: List[str]) -> np.ndarray:
-    h = manalysis.GlobalDescriptor(data)
+    h = GlobalDescriptor(data)
     h.boman_index()
     return h.descriptor.flatten()
 
 
 def calculate_isoelectricpoint(data: List[str]) -> np.ndarray:
-    h = manalysis.GlobalDescriptor(data)
+    h = GlobalDescriptor(data)
     h.isoelectric_point()
     return h.descriptor.flatten()
 
 
 def calculate_hydrophobicity(data: List[str], scale="eisenberg") -> np.ndarray:
-    h = manalysis.GlobalAnalysis(data)
-    h.calc_H(scale=scale)
-    return h.H[0]
+    d = PeptideDescriptor(data)
+    d.load_scale(scale)
+    d.calculate_global()
+    return d.descriptor.squeeze(axis=-1)
 
 
 def calculate_charge(data: List[str]) -> np.ndarray:
-    h = manalysis.GlobalAnalysis(data)
-    h.calc_charge()
-    return h.charge[0]
+    h = GlobalDescriptor(data)
+    h.calculate_charge()
+    return h.descriptor.squeeze(axis=-1)
 
 
 def calculate_hydrophobicmoment(data: List[str], scale="eisenberg") -> np.ndarray:
-    h = manalysis.PeptideDescriptor(data, scale)
+    h = PeptideDescriptor(data, scale)
     h.calculate_moment()
     return h.descriptor.flatten()
 
@@ -170,13 +171,13 @@ def calculate_length(sequences: List[str]) -> np.ndarray:
 
 
 def calculate_max_global(sequences: List[str], scale="eisenberg") -> np.ndarray:
-    h = manalysis.PeptideDescriptor(sequences, scale)
+    h = PeptideDescriptor(sequences, scale)
     h.calculate_global(window=1000, modality="max")
     return h.descriptor.flatten()
 
 
 def calculate_mean_global(sequences: List[str], scale="eisenberg") -> np.ndarray:
-    h = manalysis.PeptideDescriptor(sequences, scale)
+    h = PeptideDescriptor(sequences, scale)
     h.calculate_global(window=1000, modality="mean")
     return h.descriptor.flatten()
 
